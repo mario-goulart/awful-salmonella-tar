@@ -1,0 +1,7 @@
+(compile -d0 -O3 -J -s awful-salmonella-tar.scm)
+(compile -d0 -O3 -s awful-salmonella-tar.import.scm)
+
+(install-extension
+ 'awful-salmonella-tar
+ '("awful-salmonella-tar.so" "awful-salmonella-tar.import.so")
+ '((version "0.0.1")))

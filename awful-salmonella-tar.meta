@@ -1,0 +1,7 @@
+((synopsis "serve salmonella report files out of tar archives")
+ (author "Mario Domenech Goulart")
+ (category web)
+ (license "BSD")
+ (depends awful)
+ (test-depends)
+ (foreign-depends))

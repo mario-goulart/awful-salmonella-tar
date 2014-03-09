@@ -1,0 +1,29 @@
+This is a proof-of-concept awful application to extract salmonella
+report files from tar archives
+
+It requires "tar" (I've tested it with GNU tar, specifically).
+
+To see it working, clone this repo and install this egg with:
+
+  $ cd awful-salmonella-tar
+  $ chicken-install
+
+Then add some test data and run the app:
+
+  $ mkdir -p reports/master-debugbuild/gcc/linux/x86-64/2014/03/09/
+  $ cd reports/master-debugbuild/gcc/linux/x86-64/2014/03/09/
+  $ wget http://salmonella-linux-x86-64.call-cc.org/master-debugbuild/gcc/linux/x86-64/2014/03/09/salmonella.log.bz2
+  $ bzip2 -d salmonella.log.bz2
+
+You'll need salmonella-html-report to generate report data out of the
+salmonella log file.  If you don't have it installed, chicken-install
+salmonella-html-report
+
+  $ salmonella-html-report salmonella.log salmonella-report
+  $ tar cf salmonella-report.tar salmonella-report
+  $ rm -rf salmonella-report
+  $ cd -
+  $ awful awful-salmonella-tar-app.scm
+
+Then request, for example
+http://localhost:8080/master-debugbuild/gcc/linux/x86-64/2014/03/09/salmonella-report/rev-dep-graphs/sql-de-lite.html
