@@ -1,3 +1,4 @@
+;; -*- scheme -*-
 (compile -d0 -O3 -J -s awful-salmonella-tar.scm)
 (compile -d0 -O3 -s awful-salmonella-tar.import.scm)
 

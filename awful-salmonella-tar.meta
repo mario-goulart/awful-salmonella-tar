@@ -1,3 +1,4 @@
+;; -*- scheme -*-
 ((synopsis "serve salmonella report files out of tar archives")
  (author "Mario Domenech Goulart")
  (category web)
