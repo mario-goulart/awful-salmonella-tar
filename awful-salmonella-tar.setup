@@ -1,8 +1,19 @@
 ;; -*- scheme -*-
+(define version "0.0.1")
+
 (compile -d0 -O3 -J -s awful-salmonella-tar.scm)
 (compile -d0 -O3 -s awful-salmonella-tar.import.scm)
+
+(change-directory "scm")
+(compile -d0 -O3 -J ast-cache-manager.scm)
+(change-directory "..")
 
 (install-extension
  'awful-salmonella-tar
  '("awful-salmonella-tar.so" "awful-salmonella-tar.import.so")
- '((version "0.0.1")))
+ `((version ,version)))
+
+(install-program
+ 'ast-cache-manager
+ '(("scm/ast-cache-manager" "ast-cache-manager"))
+ `((version ,version)))
