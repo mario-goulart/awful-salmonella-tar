@@ -13,6 +13,14 @@
 
 (define salmonella-reports-dir (make-parameter "reports"))
 
+(define report-compressor
+  ;; #f specifies no compression (plain tar file)
+  (make-parameter 'gzip
+                  (lambda (v)
+                    (unless (or (not v)
+                                (member v '(gzip bzip2)))
+                      (error 'report-compressor "Unsupported compressor" v)))))
+
 (define (path-join parts)
   (string-intersperse parts "/"))
 
@@ -60,7 +68,11 @@
                   ;; Ugly.  Maybe use some tar implementation in
                   ;; scheme (e.g., snowtar, or port the tar egg to
                   ;; chicken 4)
-                  (cmd (sprintf "tar xf ~a -C ~a ~a"
+                  (cmd (sprintf "tar x~af ~a -C ~a ~a"
+                                (case (report-compressor)
+                                  ((gzip) "z")
+                                  ((bzip2) "j")
+                                  (else ""))
                                 tar-file
                                 out-dir
                                 (qs post))))
