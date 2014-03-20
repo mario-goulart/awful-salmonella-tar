@@ -33,7 +33,13 @@
                                        (null? (directory f))))))
 
     ;; Resume awful
-    (process-signal awful-pid signal/cont)))
+    (process-signal awful-pid signal/cont)
+
+    ;; Print some statistics
+    (print
+     (if (null? to-delete)
+         "Nothing to delete."
+         (sprintf "Deleted ~a files." (length to-delete))))))
 
 (define (usage #!optional exit-code)
   (let ((this (pathname-strip-directory (program-name)))
