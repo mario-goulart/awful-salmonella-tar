@@ -21,6 +21,14 @@
                                 (member v '(gzip bzip2)))
                       (error 'report-compressor "Unsupported compressor" v)))))
 
+(define report-tar-contains-compressed-files?
+  (make-parameter #f))
+
+(define (index-file)
+  (if (report-tar-contains-compressed-files?)
+      "index.htmlz"
+      "index.html"))
+
 (define (path-join parts)
   (string-intersperse parts "/"))
 
@@ -49,7 +57,7 @@
             (null? (cdr path-parts))
             (not (safe-path? requested-file-path)))
         #f
-        (cond ((equal? "index.html" (last path-parts))
+        (cond ((equal? (index-file) (last path-parts))
                (tar-file-path (drop-right path-parts 2)))
               ((equal? (salmonella-report-dir) (last path-parts))
                (tar-file-path (butlast path-parts)))
@@ -197,7 +205,7 @@
                            (redirect-to (string-append req-path "/")))
                           ((equal? (pathname-strip-directory (string-chomp req-path "/"))
                                    (salmonella-report-dir))
-                           (cond ((tar-get (make-pathname req-path "index.html"))
+                           (cond ((tar-get (make-pathname req-path (index-file)))
                                   => send-file-from-cache)
                                  (else (not-found))))
                           ((tar-get req-path) => send-file-from-cache)
