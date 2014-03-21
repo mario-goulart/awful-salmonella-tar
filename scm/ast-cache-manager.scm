@@ -19,27 +19,28 @@
               '()
               (drop-right all-files max-items))))
 
-    ;; Stop awful
-    (process-signal awful-pid signal/stop)
+    (unless (null? to-delete)
+      ;; Stop awful
+      (process-signal awful-pid signal/stop)
 
-    ;; Delete oldest files
-    (for-each delete-file* to-delete)
+      ;; Delete oldest files
+      (for-each delete-file* to-delete)
 
-    ;; Delete empty directories
-    (for-each delete-directory
-              (find-files cache-dir
-                          test: (lambda (f)
-                                  (and (directory? f)
-                                       (null? (directory f))))))
+      ;; Delete empty directories
+      (for-each delete-directory
+                (find-files cache-dir
+                            test: (lambda (f)
+                                    (and (directory? f)
+                                         (null? (directory f))))))
 
-    ;; Resume awful
-    (process-signal awful-pid signal/cont)
+      ;; Resume awful
+      (process-signal awful-pid signal/cont)
 
-    ;; Print some statistics
-    (print
-     (if (null? to-delete)
-         "Nothing to delete."
-         (sprintf "Deleted ~a files." (length to-delete))))))
+      ;; Print some statistics
+      (print
+       (if (null? to-delete)
+           "Nothing to delete."
+           (sprintf "Deleted ~a files." (length to-delete)))))))
 
 (define (usage #!optional exit-code)
   (let ((this (pathname-strip-directory (program-name)))
