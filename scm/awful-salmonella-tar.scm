@@ -38,7 +38,7 @@
 (define safe-path?
   ;; Just in case, since we are using the external program tar
   (let ((safe-chars
-         (string->list "abcdefghijklmnopqrstuvxyzABCDEFGHIJKLMNOPQRSTUVXYZ0123456789-+/:._")))
+         (string->list "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-+/:._")))
     (lambda (path)
       (and (not (substring-index ".." path))
            (let ((path-chars (string->list path)))
