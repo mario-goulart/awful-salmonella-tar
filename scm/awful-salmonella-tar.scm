@@ -82,28 +82,32 @@
             (path-join post)))))
 
 (define (tar-get requested-file-path)
-  (and-let* ((tar-file (requested-path->tar-file requested-file-path))
-             (pre/post (split-by-salmonella-report requested-file-path))
-             (pre (car pre/post))
-             (post (cdr pre/post)))
-    (and (file-exists? tar-file)
-         (handle-exceptions exn
-           #f
-           (let* ((out-dir (make-pathname (cache-dir) pre))
-                  ;; Ugly.  Maybe use some tar implementation in
-                  ;; scheme (e.g., snowtar, or port the tar egg to
-                  ;; chicken 4)
-                  (cmd (sprintf "tar x~af ~a -C ~a ~a"
-                                (case (report-compressor)
-                                  ((gzip) "z")
-                                  ((bzip2) "j")
-                                  (else ""))
-                                tar-file
-                                out-dir
-                                (qs post))))
-             (create-directory out-dir 'with-parents)
-             (system* cmd)
-             (make-pathname out-dir post))))))
+  ;; FIXME: this code is subject to race conditions
+  (let ((cache-file (make-pathname (cache-dir) requested-file-path)))
+    (if (file-read-access? cache-file)
+        cache-file
+        (and-let* ((tar-file (requested-path->tar-file requested-file-path))
+                   (pre/post (split-by-salmonella-report requested-file-path))
+                   (pre (car pre/post))
+                   (post (cdr pre/post)))
+          (and (file-exists? tar-file)
+               (handle-exceptions exn
+                 #f
+                 (let* ((out-dir (make-pathname (cache-dir) pre))
+                        ;; Ugly.  Maybe use some tar implementation in
+                        ;; scheme (e.g., snowtar, or port the tar egg to
+                        ;; chicken 4)
+                        (cmd (sprintf "tar x~af ~a -C ~a ~a"
+                                      (case (report-compressor)
+                                        ((gzip) "z")
+                                        ((bzip2) "j")
+                                        (else ""))
+                                      tar-file
+                                      out-dir
+                                      (qs post))))
+                   (create-directory out-dir 'with-parents)
+                   (system* cmd)
+                   (make-pathname out-dir post))))))))
 
 ;; As I understand it, configuring mime-type-map shouldn't be
 ;; necessary.  However, it seems that (content-type #(text/html
