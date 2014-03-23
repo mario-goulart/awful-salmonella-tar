@@ -17,9 +17,10 @@
   ;; #f specifies no compression (plain tar file)
   (make-parameter 'gzip
                   (lambda (v)
-                    (unless (or (not v)
-                                (member v '(gzip bzip2)))
-                      (error 'report-compressor "Unsupported compressor" v)))))
+                    (if (or (not v)
+                            (member v '(gzip bzip2)))
+                        v
+                        (error 'report-compressor "Unsupported compressor" v)))))
 
 (define report-tar-contains-compressed-files?
   (make-parameter #f))
