@@ -7,7 +7,7 @@
 
 (define cache-dir (make-parameter "cache"))
 
-(define salmonella-reports-dir (make-parameter "reports"))
+(define salmonella-reports-dir (make-parameter ""))
 
 (define salmonella-report-dir (make-parameter "salmonella-report"))
 
