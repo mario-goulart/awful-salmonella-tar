@@ -175,7 +175,7 @@
                      string<))))))
 
 (define (default-app-settings handler)
-  (parameterize ((page-css "http://wiki.call-cc.org/chicken.css"))
+  (parameterize ((page-css "//wiki.call-cc.org/chicken.css"))
     (handler)))
 
 (define (awful-salmonella-tar base-path #!key (awful-settings default-app-settings))
