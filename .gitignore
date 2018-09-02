@@ -1,0 +1,10 @@
+ast-cache-manager
+ast-cache-manager.import.scm
+awful-salmonella-tar.build.sh
+awful-salmonella-tar.import.scm
+awful-salmonella-tar.import.so
+awful-salmonella-tar.install.sh
+awful-salmonella-tar.link
+awful-salmonella-tar.so
+awful-salmonella-tar.static.o
+cache
