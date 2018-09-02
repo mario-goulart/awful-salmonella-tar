@@ -3,10 +3,7 @@
 
 (compile -d0 -O3 -J -s awful-salmonella-tar.scm)
 (compile -d0 -O3 -s awful-salmonella-tar.import.scm)
-
-(change-directory "scm")
 (compile -d0 -O3 -J ast-cache-manager.scm)
-(change-directory "..")
 
 (install-extension
  'awful-salmonella-tar
@@ -15,5 +12,5 @@
 
 (install-program
  'ast-cache-manager
- '(("scm/ast-cache-manager" "ast-cache-manager"))
+ '(("ast-cache-manager" "ast-cache-manager"))
  `((version ,version)))
