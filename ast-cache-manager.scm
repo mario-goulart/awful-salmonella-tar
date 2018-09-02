@@ -1,8 +1,23 @@
 (module cache-manager ()
 
-(import chicken scheme)
-
-(use data-structures files posix srfi-1)
+(import scheme)
+(cond-expand
+  (chicken-4
+   (import chicken)
+   (use data-structures files posix srfi-1))
+  (chicken-5
+   (import (chicken base)
+           (chicken file)
+           (chicken file posix)
+           (chicken format)
+           (chicken pathname)
+           (chicken process)
+           (chicken process-context)
+           (chicken process signal)
+           (chicken sort))
+   (import srfi-1))
+  (else
+   (error "Unsupported CHICKEN version.")))
 
 (define (manage-cache! cache-dir awful-pid max-items)
   ;; Sort files by modification time (older first) and remove

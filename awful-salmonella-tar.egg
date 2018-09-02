@@ -1,0 +1,13 @@
+;;; -*- scheme -*-
+
+((synopsis "Serve salmonella report files out of tar archives")
+ (author "Mario Domenech Goulart")
+ (license "BSD")
+ (category web)
+ (dependencies awful
+               srfi-1
+               srfi-13)
+ (component-options
+  (csc-options "-O3" "-d0"))
+ (components (extension awful-salmonella-tar)
+             (program ast-cache-manager)))

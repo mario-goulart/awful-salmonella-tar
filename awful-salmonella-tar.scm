@@ -8,13 +8,36 @@
    report-compressor
    report-tar-contains-compressed-files?)
 
-(import chicken scheme)
-
-;; Core units
-(use data-structures extras files irregex posix srfi-1 srfi-13 utils)
-
-;; Eggs
-(use awful intarweb spiffy)
+(import scheme)
+(cond-expand
+  (chicken-4
+   (import chicken)
+   ;; Core units
+   (use data-structures extras files irregex posix srfi-1 srfi-13 utils)
+   ;; Eggs
+   (use awful intarweb spiffy))
+  (chicken-5
+   (import (chicken base)
+           (chicken condition)
+           (chicken errno)
+           (chicken file)
+           (chicken file posix)
+           (chicken format)
+           (chicken irregex)
+           (chicken pathname)
+           (chicken process)
+           (chicken string)
+           (chicken sort)
+           (chicken time posix))
+   (import awful intarweb spiffy srfi-1 srfi-13)
+   (define (file-read-access? file)
+     (handle-exceptions exn
+       (if (= (errno) errno/noent)
+           #f
+           (abort exn))
+       (file-readable? file))))
+  (else
+   (error "Unsupported CHICKEN version.")))
 
 
 (define cache-dir (make-parameter "cache"))
