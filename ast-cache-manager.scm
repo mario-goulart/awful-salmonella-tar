@@ -1,4 +1,4 @@
-(module cache-manager ()
+(module ast-cache-manager ()
 
 (import scheme)
 (cond-expand
