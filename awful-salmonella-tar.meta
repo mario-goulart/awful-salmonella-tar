@@ -1,8 +1,6 @@
 ;; -*- scheme -*-
-((synopsis "serve salmonella report files out of tar archives")
+((synopsis "Serve salmonella report files out of tar archives")
  (author "Mario Domenech Goulart")
  (category web)
  (license "BSD")
- (depends (awful "1.0.0"))
- (test-depends)
- (foreign-depends))
+ (depends (awful "1.0.0")))
