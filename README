@@ -12,9 +12,9 @@ To see it working, clone this repo and install this egg with:
 
 Then add some test data and run the app:
 
-  $ mkdir -p reports/master-debugbuild/gcc/linux/x86-64/2014/03/09/
-  $ cd reports/master-debugbuild/gcc/linux/x86-64/2014/03/09/
-  $ wget http://salmonella-linux-x86-64.call-cc.org/master-debugbuild/gcc/linux/x86-64/2014/03/09/salmonella.log.bz2
+  $ mkdir -p reports/master/gcc/linux/x86-64/2018/09/02/
+  $ cd reports/master/gcc/linux/x86-64/2018/09/02/
+  $ wget https://salmonella-linux-x86-64.call-cc.org/master/gcc/linux/x86-64/2018/09/02/salmonella.log.bz2
   $ bzip2 -d salmonella.log.bz2
 
 You'll need salmonella-html-report to generate report data out of the
@@ -28,4 +28,4 @@ salmonella-html-report
   $ awful awful-salmonella-tar-app.scm
 
 Then request, for example
-http://localhost:8080/master-debugbuild/gcc/linux/x86-64/2014/03/09/salmonella-report/rev-dep-graphs/sql-de-lite.html
+http://localhost:8080/reports/master/gcc/linux/x86-64/2018/09/02/salmonella-report/
