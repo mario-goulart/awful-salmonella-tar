@@ -199,8 +199,7 @@
     matcher: (lambda (path)
                (irregex-match base-path-pattern path))
     handler-hook: (lambda (handler)
-                    (parameterize ((enable-sxml #t)
-                                   (app-root-path base-path))
+                    (parameterize ((app-root-path base-path))
                       (awful-settings handler)))
 
     (create-directory (cache-dir) 'with-parents)

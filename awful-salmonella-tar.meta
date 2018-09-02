@@ -3,6 +3,6 @@
  (author "Mario Domenech Goulart")
  (category web)
  (license "BSD")
- (depends awful)
+ (depends (awful "1.0.0"))
  (test-depends)
  (foreign-depends))
