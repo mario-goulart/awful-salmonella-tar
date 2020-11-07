@@ -1,5 +1,5 @@
-This is a proof-of-concept awful application to extract salmonella
-report files from tar archives
+This is an awful application to extract salmonella report files from
+tar archives
 
 It requires "tar" (I've tested it with GNU tar, specifically).  For
 compressed report tar files, gzip or bzip2 are required (by default,
