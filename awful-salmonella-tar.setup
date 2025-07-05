@@ -1,5 +1,5 @@
 ;; -*- scheme -*-
-(define version "0.0.4")
+(define version "0.0.5")
 
 (compile -d0 -O3 -J -s awful-salmonella-tar.scm)
 (compile -d0 -O3 -s awful-salmonella-tar.import.scm)
