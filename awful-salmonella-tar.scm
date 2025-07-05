@@ -133,13 +133,18 @@
                         ;; Ugly.  Maybe use some tar implementation in
                         ;; scheme (e.g., snowtar, or port the tar egg to
                         ;; chicken 4)
-                        (cmd (sprintf "tar x~af ~a -C ~a ~a"
+                        ;;
+                        ;; Redirect errors to /dev/null to avoid
+                        ;; flooding system logs in case of requests
+                        ;; for files that do not exist in the tarball
+                        ;; (e.g., requests from LLM bots).
+                        (cmd (sprintf "tar x~af ~a -C ~a ~a 2>/dev/null"
                                       (case (report-compressor)
                                         ((gzip) "z")
                                         ((bzip2) "j")
                                         (else ""))
-                                      tar-file
-                                      out-dir
+                                      (qs tar-file)
+                                      (qs out-dir)
                                       (qs post))))
                    (create-directory out-dir 'with-parents)
                    (system* cmd)
